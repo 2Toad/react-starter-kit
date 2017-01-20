@@ -41,3 +41,14 @@ Fork the repo: github.com:2Toad/react-starter-kit
 #### Automated Testing
 
 `yarn test`
+
+### Update Repo
+
+If you want to update your fork with the latest commits from the repo you forked off of:
+
+```shell
+git remote add upstream git@github.com:2toad/react-starter-kit.git
+git fetch upstream
+git merge upstream/master
+yarn install
+```
