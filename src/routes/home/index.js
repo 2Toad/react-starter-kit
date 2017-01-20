@@ -18,7 +18,7 @@ export default {
           news {
             title
             link
-            contentSnippet
+            content
           }
         }`,
       }),

@@ -1,6 +1,6 @@
 FROM 2toad/alpine-node:6.9.4
 
-# Copy applicaiton files
+# Copy application files
 COPY ./build /usr/src/app
 WORKDIR /usr/src/app
 
