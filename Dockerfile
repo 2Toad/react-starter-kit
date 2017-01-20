@@ -1,4 +1,4 @@
-FROM node:7.2.1-alpine
+FROM 2toad/alpine-node:6.9.4
 
 # Copy applicaiton files
 COPY ./build /usr/src/app
