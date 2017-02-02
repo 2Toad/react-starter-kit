@@ -48,7 +48,7 @@ If you want to update your fork with the latest commits from the repo you forked
 
 ```shell
 git remote add upstream git@github.com:2toad/react-starter-kit.git
-git fetch upstream
+git fetch upstream master
 git merge upstream/master
 yarn install
 ```
