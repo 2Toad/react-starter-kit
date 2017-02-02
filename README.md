@@ -44,11 +44,46 @@ Fork the repo: github.com:2Toad/react-starter-kit
 
 ### Update Repo
 
-If you want to update your fork with the latest commits from the repo you forked off of:
+#### 1. Merge Upstream
+
+Update your fork with the latest commits from the repo you forked off of:
 
 ```shell
 git remote add upstream git@github.com:2toad/react-starter-kit.git
 git fetch upstream master
 git merge upstream/master
-yarn install
+```
+
+#### 2. Merge Conflicts
+
+To always keep your changes (e.g., README.md)
+
+```shell
+git checkout --ours -- README.md
+```
+
+#### 3. Before Committing
+
+3a. It's a good idea to view all the changes you're merging in before committing them
+
+```shell
+git reset .
+git diff
+```
+
+3b. If you don't like anything, change it.
+
+3c. Make sure it builds and runs okay
+
+```shell
+yarn install --force
+yarn lint && yarn test && yarn start
+```
+
+#### 4. Commit
+
+```shell
+git add .
+git commit -m "Merge master from 2toad"
+git push
 ```

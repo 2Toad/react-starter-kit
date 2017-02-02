@@ -2,8 +2,6 @@ const MarkdownIt = require('markdown-it');
 const fm = require('front-matter');
 
 module.exports = function markdownLoader(source) {
-  this.cacheable();
-
   const md = new MarkdownIt({
     html: true,
     linkify: true,
