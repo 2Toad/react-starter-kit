@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import history from '../../core/history';
 
 function isLeftClickEvent(event) {
@@ -12,8 +13,12 @@ function isModifiedEvent(event) {
 class Link extends React.Component {
   static propTypes = {
     to: PropTypes.string.isRequired,
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
+  };
+
+  static defaultProps = {
+    onClick: null,
   };
 
   handleClick = (event) => {

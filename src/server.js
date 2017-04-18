@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
@@ -8,16 +7,15 @@ import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import passport from './core/passport';
+import router from './core/router';
 import models from './data/models';
 import schema from './data/schema';
-import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import { port, auth } from './config';
 
@@ -48,7 +46,7 @@ app.use(expressJwt({
 }));
 app.use(passport.initialize());
 
-if (process.env.NODE_ENV !== 'production') {
+if (__DEV__) {
   app.enable('trust proxy');
 }
 app.get('/login/facebook',
@@ -69,9 +67,9 @@ app.get('/login/facebook/return',
 // -----------------------------------------------------------------------------
 app.use('/graphql', expressGraphQL(req => ({
   schema,
-  graphiql: process.env.NODE_ENV !== 'production',
+  graphiql: __DEV__,
   rootValue: { request: req },
-  pretty: process.env.NODE_ENV !== 'production',
+  pretty: __DEV__,
 })));
 
 //
@@ -92,7 +90,7 @@ app.get('*', async (req, res, next) => {
       },
     };
 
-    const route = await UniversalRouter.resolve(routes, {
+    const route = await router.resolve({
       path: req.path,
       query: req.query,
     });
@@ -104,7 +102,9 @@ app.get('*', async (req, res, next) => {
 
     const data = { ...route };
     data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
-    data.style = [...css].join('');
+    data.styles = [
+      { id: 'css', cssText: [...css].join('') },
+    ];
     data.scripts = [
       assets.vendor.js,
       assets.client.js,
@@ -134,7 +134,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     <Html
       title="Internal Server Error"
       description={err.message}
-      style={errorPageStyle._getCss()} // eslint-disable-line no-underscore-dangle
+      styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>,

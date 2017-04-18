@@ -11,6 +11,7 @@ export default {
 
     return {
       title: data.title,
+      chunk: 'privacy',
       component: <Layout><Page {...data} /></Layout>,
     };
   },

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 
@@ -16,17 +17,16 @@ class Home extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>React.js News</h1>
-          <ul className={s.news}>
-            {this.props.news.map((item, index) => (
-              <li key={index} className={s.newsItem}>
-                <a href={item.link} className={s.newsTitle}>{item.title}</a>
-                <span
-                  className={s.newsDesc}
-                  dangerouslySetInnerHTML={{ __html: item.content.substring(0, 100) }}
-                />
-              </li>
-            ))}
-          </ul>
+          {this.props.news.map(item => (
+            <article key={item.link} className={s.newsItem}>
+              <h1 className={s.newsTitle}><a href={item.link}>{item.title}</a></h1>
+              <div
+                className={s.newsDesc}
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{ __html: item.content }}
+              />
+            </article>
+          ))}
         </div>
       </div>
     );

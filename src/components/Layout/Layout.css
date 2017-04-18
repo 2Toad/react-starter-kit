@@ -1,5 +1,6 @@
-@import '../../../node_modules/normalize.css/normalize.css';
 @import '../variables.css';
+
+@global-import 'normalize.css' ;
 
 /*
  * Base styles
@@ -11,6 +12,10 @@ html {
   font-size: 1em; /* ~16px; */
   font-family: var(--font-family-base);
   line-height: 1.375; /* ~22px */
+}
+
+body {
+  margin: 0;
 }
 
 a {
