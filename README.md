@@ -87,3 +87,22 @@ git add .
 git commit -m "Merge master from 2toad"
 git push
 ```
+
+## Deployment
+
+### Build Docker Image
+The image produced by this scrip uses the `name` value stored in package.json
+
+```shell
+yarn run build -- --release --docker
+```
+
+### Run Docker image
+
+```shell
+docker run -p 49160:3000 -d <IMAGE_NAME>
+```
+
+### Troubleshooting
+
+* Print output: `docker logs <CONTAINER_ID>`
